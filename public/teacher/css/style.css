@@ -1,0 +1,72 @@
+body{
+    background-color: #ebf0f6;
+}
+.container {
+    max-width: auto;
+    background: #fff;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.list {
+    padding: 8px 0px;
+}
+
+.font {
+    font-size: smaller;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+
+}
+
+.table>:not(caption)>*>* {
+    padding: 0;
+    color: var(--bs-table-color-state, var(--bs-table-color-type, var(--bs-table-color)));
+    background-color: var(--bs-table-bg);
+    border-bottom-width: var(--bs-border-width);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
+}
+
+th,
+td {
+
+    align-content: space-evenly;
+}
+
+td {
+    margin: 0;
+    padding: 0;
+}
+.form-container {
+    max-width: 800px;
+    /* Adjusted width */
+    margin: 2rem auto;
+    /* Centering the form */
+    background: #fff;
+    /* White background */
+    padding: 1.5rem;
+    /* Padding around the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+.form-heading {
+    margin-bottom: 1.5rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+}
+
+.form-label {
+    margin-bottom: .5rem;
+    color: #666;
+}
+
+.form-control {
+    margin-bottom: 1rem;
+    /* Space between form fields */
+}

@@ -1,0 +1,211 @@
+Laravel Project Creation:
+	-> open xampp and start the server Apache and MySQL 
+	-> in the xampp folder there is another folder named htdocs
+	-> navigate to htdocs
+	-> open powershell in that folder
+	-> powershell command: 
+		=> Laravel new ProjectName
+		=> breeze
+		=> blade
+		=> no
+		=> 1
+		=> no (if we dont want Git Repository if not then yes)
+		=> MySQL
+		=> navigate to ProjectName or open powershell in the ProjectName file
+		=> write the command "php artisan serve" to check if the server working or not 
+		=> open browser using the ip
+
+
+Open VScode and open the project folder
+
+Check the .env for database connection (Make sure the DB_CONNECTION=mysql)
+
+We can create a default user
+
+*
+*
+*
+*
+*
+*
+
+Create User (Admin):
+
+	-> create a model using command "php artisan make:model Admin -m"
+
+	-> create table in the migration file named create_admins_table.php inside the function " public function up(): void "
+	
+	-> public function up(): void
+    {
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    } NOTE: if the database has more columns we will add the column names here
+	
+
+	-> copy code from the User model and paste it in the Admin model
+	-> change the class name to "Admin"
+	-> apply guard write bellow "use HasFactory, Notifiable;"
+		
+		" protected $guard = 'admin'; "
+	-> we can also use guard in the User model 
+	
+		" protected $guard = 'web'; "
+	-> inside the "config" folder there is a php file named "auth.php"
+	-> in the 'guards' copy the existing "web" guard and paste write bellow
+		
+		'admin' => [
+            		'driver' => 'session',
+            		'provider' => 'admins',
+       		 ], (NOTE: for admin only)
+
+	-> in the 'provider' use this code
+
+		'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+	-> in the "routes" folder we copy the file "auth.php" and paste it and rename the the file "admin-auth.php"
+	
+	-> in the "web.php" we call the class at the bottom where "require __DIR__.'/auth.php';" is
+	
+	-> below the code we set "require __DIR__.'/admin-auth.php';"
+	
+	-> remove the unnecessary codes and it library
+
+	-> we copy the routes of the dashboard from the "web.php" and paste in the "admin-auth.php" where 
+
+		Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function () {
+    			Route::get('/dashboard', function () {
+		        return view('admin.dashboard');
+		    })->middleware(['verified'])->name('dashboard');
+
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
+
+	
+	-> add this library " use App\Http\Controllers\Admin\ProfileController; " at the top
+
+	-> inside the "Admin" model folder we create another folder named "Auth" and copy and paste "AuthenticatedSessionController.php", "RegisteredUserController.php" from the "Controllers->Auth"
+
+	-> also from the "Controllers" we copy "ProfileController.php" and paste it inside the "Admin" folder outside of the "Auth" folder
+
+
+	-> change the namespace of the "Controllers->Admin->Auth" "AuthenticatedSessionController.php"
+
+		" namespace App\Http\Controllers\Admin\Auth; "
+
+
+	-> change the namespace of the "Controllers->Admin->Auth" "RegisteredUserController.php"
+
+		" namespace App\Http\Controllers\Admin\Auth; "
+
+
+	-> change the namespace of the "Controllers->Admin" "ProfileController.php"
+
+		" namespace App\Http\Controllers\Admin; "
+
+	-> in the "Controllers->Admin" "ProfileController.php" add this line 
+
+		" use App\Http\Controllers\Controller; "
+
+
+	-> inside the "AuthenticatedSessionController.php" where ever there is route written add "admin." before the route name also in the return view also change the guard into "admin"
+
+	-> inside the "RegisteredUserController.php" do the same thing. wherever you find "user" change it to "admin" if the
+
+	-> at the top add this " use App\Http\Controllers\Controller; " 
+
+	-> change the model " use App\Models\Admin; "
+
+	-> add this line in the Auth " Auth::guard('admin')->login($admin); " to add guard
+	-> in the "routes" folder in the "admin-auth.php" file add " use App\Http\Controllers\Admin\ProfileController; " on top
+
+	-> inside the "views" folder we need to create a folder name "admin"
+
+	-> inside the "admin" folder we will copy the "auth" folder, "layouts", "profile" and the "dashboard.blade.php" from the root folder "views"
+
+	-> inside the "welcome.blade.php" we change the 
+
+
+=========================================================
+ @if(auth()->user()->account_type === 'Student')
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentdashboard" aria-expanded="false"><i class="fas fa-chart-bar"></i> Dashboard</a>
+
+                        <ul id="studentdashboard" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.dashboard') }}" class="sidebar-link">Student Dashboard</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentprofile" aria-expanded="false"><i class="fa-solid fa-user"></i> Student Profile</a>
+
+                        <ul id="studentprofile" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.profile') }}" class="sidebar-link">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#classroutine" aria-expanded="false"><i class="fa-regular fa-calendar-days"></i> Routine</a>
+
+                        <ul id="classroutine" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.classRoutine') }}" class="sidebar-link">Class Routine</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentresult" aria-expanded="false"><i class="fa fa-list-alt" aria-hidden="true"></i> Result</a>
+
+                        <ul id="studentresult" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.marks.classWise') }}" class="sidebar-link">Class Wise Result</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentsubject" aria-expanded="false"><i class="fa fa-book" aria-hidden="true"></i> Enrolled Subjects</a>
+
+                        <ul id="studentsubject" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.subjects') }}" class="sidebar-link">Subjects</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentlibrary" aria-expanded="false"><i class="fa-solid fa-book-open-reader"></i> Library</a>
+
+                        <ul id="studentlibrary" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.library.books') }}" class="sidebar-link">All Books</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentnotice" aria-expanded="false"><i class="fa-solid fa-triangle-exclamation"></i> Notice</a>
+
+                        <ul id="studentnotice" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.notices') }}" class="sidebar-link">Notice</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed shadow"
+                            data-bs-toggle="collapse" data-bs-target="#studentexam" aria-expanded="false"><i class="fas fa-atom"></i> Exam</a>
+
+                        <ul id="studentexam" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('student.exam.schedule') }}" class="sidebar-link">Exam Schedule</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @endif
