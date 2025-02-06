@@ -255,7 +255,11 @@
                             <i class="fa-regular fa-clipboard"></i> Class Routine
                         </a>
                         <ul id="classRoutine" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Class Routine</a></li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.classroutine') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-calendar"></i> View Class Routine
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-item">

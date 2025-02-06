@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class Student extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     protected $guard = 'student';
@@ -23,6 +21,8 @@ class Student extends Authenticatable
         'name',
         'email',
         'password',
+        'class_id', // Added class_id
+        'section',  // Added section
     ];
 
     /**
@@ -46,5 +46,13 @@ class Student extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relationship: A student belongs to a class.
+     */
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id', 'id');
     }
 }

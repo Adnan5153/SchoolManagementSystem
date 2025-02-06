@@ -299,49 +299,79 @@
                             <i class="fa-solid fa-chart-column"></i> Class
                         </a>
                         <ul id="classes" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">All Classes</a></li>
-                            <li class="sidebar-item"><a href="addclass" class="sidebar-link">Add Class</a></li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('classes.index') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-list"></i> All Classes
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('classes.create') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-plus"></i> Add Class
+                                </a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#subjects" aria-expanded="false">
                             <i class="fa-solid fa-layer-group"></i> Subjects
                         </a>
+                        <ul id="subjects" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('subjects.index') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-plus"></i> Add Subject
+                                </a>
+                            </li>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-regular fa-clipboard"></i> Class Routine
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-solid fa-clipboard-check"></i> Attendance
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#exam" aria-expanded="false">
-                            <i class="fa-solid fa-graduation-cap"></i> Exam
-                        </a>
-                        <ul id="exam" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Schedule</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Grades</a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-solid fa-flag"></i> Notices
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-solid fa-envelope"></i> Messages
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="fa-solid fa-map-location"></i> Maps
-                        </a>
-                    </li>
+                </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#classRoutineMenu" aria-expanded="false">
+                        <i class="fa-regular fa-clipboard"></i> Class Routine
+                    </a>
+                    <ul id="classRoutineMenu" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="{{ route('classroutines.index') }}" class="sidebar-link">
+                                <i class="fa-solid fa-list"></i> View Class Routines
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('classroutines.create') }}" class="sidebar-link">
+                                <i class="fa-solid fa-plus"></i> Add Class Routine
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
+                        <i class="fa-solid fa-clipboard-check"></i> Attendance
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#exam" aria-expanded="false">
+                        <i class="fa-solid fa-graduation-cap"></i> Exam
+                    </a>
+                    <ul id="exam" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                        <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Schedule</a></li>
+                        <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Grades</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
+                        <i class="fa-solid fa-flag"></i> Notices
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
+                        <i class="fa-solid fa-envelope"></i> Messages
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" aria-expanded="false">
+                        <i class="fa-solid fa-map-location"></i> Maps
+                    </a>
+                </li>
                 </ul>
 
             </div>

@@ -12,7 +12,7 @@ class Teacher extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $guard = 'teacher';
+    protected $guard = 'teachers';
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +20,7 @@ class Teacher extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -46,5 +47,9 @@ class Teacher extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'teacher_id', 'id');
     }
 }
