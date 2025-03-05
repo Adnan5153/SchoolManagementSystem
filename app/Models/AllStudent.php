@@ -42,8 +42,12 @@ class AllStudent extends Model
     {
         return $this->belongsTo(ParentModel::class, 'parent_id', 'id');
     }
-    public function marks()
+
+    /**
+     * Relationship to the student account.
+     */
+    public function studentAccount()
     {
-        return $this->hasMany(Mark::class, 'student_id', 'student_id');
+        return $this->hasOne(Student::class, 'email', 'email');
     }
 }

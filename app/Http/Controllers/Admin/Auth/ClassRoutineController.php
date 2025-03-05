@@ -119,6 +119,25 @@ class ClassRoutineController extends Controller
         return redirect()->route('classroutines.index')->with('success', 'Class routine updated successfully.');
     }
 
+    public function getSubjectsByClass(Request $request)
+    {
+        $classId = $request->query('class_id');
+
+        if (!$classId) {
+            return response()->json(['error' => 'No class selected'], 400);
+        }
+
+        $subjects = Subject::where('class_id', $classId)->get();
+
+        if ($subjects->isEmpty()) {
+            return response()->json(['message' => 'No subjects found for this class'], 200);
+        }
+
+        return response()->json($subjects);
+    }
+
+
+
     /**
      * Delete a class routine.
      */

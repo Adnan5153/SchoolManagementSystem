@@ -246,7 +246,7 @@
                             <i class="fas fa-chart-bar"></i> Dashboard
                         </a>
                         <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Admin</a></li>
+                            <li class="sidebar-item"><a href="{{ route('admin.dashboard') }}" class="sidebar-link">Admin</a></li>
                             <li class="sidebar-item"><a href="#" class="sidebar-link">Student</a></li>
                             <li class="sidebar-item"><a href="#" class="sidebar-link">Parent</a></li>
                         </ul>
@@ -272,7 +272,7 @@
                         </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a href="allparents" class="sidebar-link shadow">
+                        <a href="{{ route('allparents.index')}}" class="sidebar-link shadow">
                             <i class="fa-solid fa-user-group"></i> Parents
                         </a>
                     </li>
@@ -287,11 +287,24 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#marks" aria-expanded="false">
-                            <i class="fa-solid fa-circle-dollar-to-slot"></i> Marks
+                            <i class="fa-solid fa-chart-line"></i> Grades & Results
                         </a>
                         <ul id="marks" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="addmarks" class="sidebar-link">Add Marks</a></li>
-                            <li class="sidebar-item"><a href="result" class="sidebar-link">Show Result</a></li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('grades.create') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-plus"></i> Add Grade
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('grades.index') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-list"></i> View Grades
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">
+                                    <i class="fa-solid fa-chart-bar"></i> Show Result
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-item">

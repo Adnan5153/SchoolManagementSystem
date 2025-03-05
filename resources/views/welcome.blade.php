@@ -29,11 +29,11 @@
                 Dashboard
             </a>
             @else
-            <a
+            <!-- <a
                 href="{{ route('login') }}"
                 class="btn btn-primary" role="button">
                 User Log in
-            </a>
+            </a> -->
 
             <!-- @if (Route::has('register'))
             <a

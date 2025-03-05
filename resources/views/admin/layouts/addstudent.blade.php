@@ -32,21 +32,12 @@
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
             </div>
             <div class="col-md-6">
-                <label for="class" class="form-label">Class</label>
-                <select class="form-select" id="class" name="class" required>
-                    <option value="">Select Class</option>
-                    <option value="PG">PG</option>
-                    <option value="KG">KG</option>
-                    <option value="1">1</option>
-                    <!-- Additional classes -->
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="section" class="form-label">Section</label>
-                <select class="form-select" id="section" name="section" required>
-                    <option value="">Select Section</option>
-                    <option value="A">A</option>
-                    <!-- Additional sections -->
+                <label for="class_id" class="form-label">Class & Section</label>
+                <select class="form-select" id="class_id" name="class_id" required>
+                    <option value="">Select Class & Section</option>
+                    @foreach($classes as $class)
+                    <option value="{{ $class->id }}">{{ $class->class_name }} - {{ $class->section }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-6">
@@ -128,4 +119,5 @@
         </div>
     </form>
 </div>
+
 @endsection

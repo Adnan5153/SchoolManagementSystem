@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\AllStudentController;
 use App\Http\Controllers\Admin\Auth\AddTeacherController;
 use App\Http\Controllers\Admin\Auth\AllTeacherController;
 use App\Http\Controllers\Admin\Auth\ClassController;
+use App\Http\Controllers\Admin\Auth\GradeController;
 use App\Http\Controllers\Admin\Auth\ClassRoutineController;
 use App\Http\Controllers\Teacher\Auth\MarkController;
 use App\Http\Controllers\Admin\Auth\AddSubjectController;
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
 // Admin Routes
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
+
     // Student Routes
     Route::get('/addstudent', [AddStudentController::class, 'create'])->name('register.student.and.parent');
     Route::post('/addstudent', [AddStudentController::class, 'store'])->name('register.student.and.parent.store');
@@ -36,6 +38,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/allstudent', [AllStudentController::class, 'index'])->name('allstudent.index');
     Route::put('/allstudent/{student_id}', [AllStudentController::class, 'update'])->name('allstudent.update');
     Route::delete('/allstudent/{student_id}', [AllStudentController::class, 'destroy'])->name('allstudent.destroy');
+
+    // Parent Routes
+    Route::get('/allparents', [AllStudentController::class, 'showParents'])->name('allparents.index');
+    Route::put('/allparents/{parent_id}', [AllStudentController::class, 'updateParent'])->name('allparents.update');
+    Route::delete('/allparents/{parent_id}', [AllStudentController::class, 'destroyParent'])->name('allparents.destroy');
 
     // Teacher Routes
     Route::get('/addteacher', [AddTeacherController::class, 'create'])->name('addteacher.create');
@@ -52,6 +59,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/subjects/{subject}/edit', [AddSubjectController::class, 'edit'])->name('subjects.edit');
     Route::put('/subjects/{subject}', [AddSubjectController::class, 'update'])->name('subjects.update');
     Route::delete('/subjects/{subject}', [AddSubjectController::class, 'destroy'])->name('subjects.destroy');
+    Route::get('/subjects/filter', [AddSubjectController::class, 'filterSubjects'])->name('subjects.filter');
 
     // Class Routes
     Route::get('/classes', [ClassController::class, 'index'])->name('classes.index');
@@ -68,6 +76,17 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/classroutines/edit/{id}', [ClassRoutineController::class, 'edit'])->name('classroutines.edit');
     Route::put('/classroutines/update/{id}', [ClassRoutineController::class, 'update'])->name('classroutines.update');
     Route::delete('/classroutines/delete/{id}', [ClassRoutineController::class, 'destroy'])->name('classroutines.destroy');
+    Route::get('/classroutines/get-subjects', [ClassRoutineController::class, 'getSubjectsByClass'])->name('classroutines.get-subjects');
+
+
+
+    // Admin Routes for Grade Management
+    Route::get('/grades', [GradeController::class, 'index'])->name('grades.index');
+    Route::get('/grades/create', [GradeController::class, 'create'])->name('grades.create');
+    Route::post('/grades', [GradeController::class, 'store'])->name('grades.store');
+    Route::get('/grades/{grade}/edit', [GradeController::class, 'edit'])->name('grades.edit');
+    Route::put('/grades/{grade}', [GradeController::class, 'update'])->name('grades.update');
+    Route::delete('/grades/{grade}', [GradeController::class, 'destroy'])->name('grades.destroy');
 });
 
 // Teacher Routes
@@ -85,11 +104,9 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     // Student Class Routine Routes
     Route::get('/classroutine', [StudentClassRoutineController::class, 'index'])
         ->name('student.classroutine');
-    
-    
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin-auth.php';
-require __DIR__.'/teacher-auth.php';
-require __DIR__.'/student-auth.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin-auth.php';
+require __DIR__ . '/teacher-auth.php';
+require __DIR__ . '/student-auth.php';

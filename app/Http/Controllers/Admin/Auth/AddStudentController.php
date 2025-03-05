@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\AllStudent;
+use App\Models\Student;
 use App\Models\ParentModel;
+use App\Models\ClassModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AddStudentController extends Controller
@@ -16,7 +19,8 @@ class AddStudentController extends Controller
      */
     public function create()
     {
-        return view('admin.layouts.addstudent');
+        $classes = ClassModel::all(); // Fetch all classes and sections
+        return view('admin.layouts.addstudent', compact('classes'));
     }
 
     /**
@@ -24,19 +28,17 @@ class AddStudentController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data for both student and parent
+        // Validate the request data for student and parent
         $validatedData = $request->validate([
-            // Student fields
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'class' => 'required|string|max:10',
-            'section' => 'required|string|max:10',
+            'class_id' => 'required|exists:classes,id', // Ensure class_id exists
             'gender' => 'required|string|max:10',
             'date_of_birth' => 'required|date',
             'student_id' => 'required|numeric|unique:allstudents,student_id',
             'admission_number' => 'nullable|string|max:50',
             'religion' => 'required|string|max:50',
-            'email' => 'required|email|max:255|unique:allstudents,email',
+            'email' => 'required|email|max:255|unique:allstudents,email|unique:students,email',
 
             // Parent fields
             'father_name' => 'required|string|max:255',
@@ -52,6 +54,9 @@ class AddStudentController extends Controller
         DB::beginTransaction();
 
         try {
+            // Fetch class and section from database
+            $classData = ClassModel::findOrFail($validatedData['class_id']);
+
             // Check if the parent already exists
             $parent = ParentModel::firstOrCreate(
                 ['parent_email' => $validatedData['parent_email']],
@@ -66,13 +71,13 @@ class AddStudentController extends Controller
                 ]
             );
 
-            // Create the student record
-            AllStudent::create([
+            // Create the student record in the allstudents table
+            $allStudent = AllStudent::create([
                 'student_id' => $validatedData['student_id'],
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
-                'class' => $validatedData['class'],
-                'section' => $validatedData['section'],
+                'class' => $classData->class_name, // Get class name from database
+                'section' => $classData->section, // Get section from database
                 'gender' => $validatedData['gender'],
                 'date_of_birth' => $validatedData['date_of_birth'],
                 'admission_number' => $validatedData['admission_number'],
@@ -81,19 +86,24 @@ class AddStudentController extends Controller
                 'parent_id' => $parent->id,
             ]);
 
+            // Automatically create a student account with default password
+            Student::create([
+                'name' => $validatedData['first_name'] . ' ' . $validatedData['last_name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make('12345678'), // Default password
+                'class_id' => $validatedData['class_id'],
+                'section' => $classData->section, // Store section from classes table
+            ]);
+
             DB::commit();
 
-            // Redirect with a success message
             return redirect()->route('register.student.and.parent')
-                ->with('success', 'Student and parent have been successfully added.');
-
+                ->with('success', 'Student and parent have been successfully added. Student account created with default password: 12345678');
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // Log the error for debugging
             Log::error('Error while adding student and parent: ' . $e->getMessage());
 
-            // Redirect with an error message
             return redirect()->route('register.student.and.parent')
                 ->with('error', 'An error occurred while adding the student and parent. Please try again.');
         }

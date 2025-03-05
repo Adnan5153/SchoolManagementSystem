@@ -21,6 +21,21 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Class & Section Selection (Merged Dropdown) -->
+        <div class="mt-4">
+            <x-input-label for="class_section" :value="__('Class & Section')" />
+            <select id="class_section" name="class_section" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                <option value="" disabled selected>Select Class & Section</option>
+                @foreach($classes as $class)
+                <option value="{{ $class->id }}|{{ $class->section }}">
+                    {{ $class->class_name }} - {{ $class->section }}
+                </option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('class_section')" class="mt-2" />
+        </div>
+
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

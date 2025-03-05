@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\ClassModel; // Updated class model reference
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -19,7 +20,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('teacher.auth.register');
+        $classes = ClassModel::all(); // Fetch all classes
+        return view('teacher.auth.register', compact('classes'));
     }
 
     /**
@@ -31,19 +33,31 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Teacher::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:teachers,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'class_section' => ['required'], // Validate merged Class & Section dropdown
         ]);
 
-        $Teacher = Teacher::create([
+        // Extract class_id and section from merged input
+        list($classId, $section) = explode('|', $request->class_section);
+
+        // Ensure the selected section is valid for the chosen class
+        $validSection = ClassModel::where('id', $classId)->where('section', $section)->exists();
+        if (!$validSection) {
+            return back()->withErrors(['class_section' => 'Invalid class-section selection.']);
+        }
+
+        $teacher = Teacher::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'class_id' => $classId, // Assign class_id
+            'section' => $section,  // Assign section
         ]);
 
-        event(new Registered($Teacher));
+        event(new Registered($teacher));
 
-        Auth::guard('teacher')->login($Teacher);
+        Auth::guard('teacher')->login($teacher);
 
         return redirect(route('teacher.dashboard', absolute: false));
     }
