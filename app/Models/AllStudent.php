@@ -24,6 +24,7 @@ class AllStudent extends Model
         'student_id',
         'first_name',
         'last_name',
+        'class_id',
         'class',
         'section',
         'gender',
@@ -41,6 +42,10 @@ class AllStudent extends Model
     public function parent()
     {
         return $this->belongsTo(ParentModel::class, 'parent_id', 'id');
+    }
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id', 'id');
     }
 
     /**

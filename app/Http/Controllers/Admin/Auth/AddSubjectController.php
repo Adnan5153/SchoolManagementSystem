@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use Illuminate\Support\Facades\Log;
+use App\Models\Teacher;
 use App\Models\ClassModel; // Ensure we use the correct Class model
 
 class AddSubjectController extends Controller
@@ -14,13 +16,11 @@ class AddSubjectController extends Controller
      */
     public function index()
     {
-        // Fetch all classes
         $classes = ClassModel::select('id', 'class_name', 'section')->get();
+        $teachers = Teacher::select('id', 'name', 'email')->get();
+        $subjects = Subject::with(['class', 'teacher'])->get();
 
-        // Fetch all subjects with their assigned classes
-        $subjects = Subject::with('class')->get();
-
-        return view('admin.layouts.addsubject', compact('classes', 'subjects'));
+        return view('admin.layouts.addsubject', compact('classes', 'teachers', 'subjects'));
     }
 
     /**
@@ -28,9 +28,14 @@ class AddSubjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Log request data for debugging
+        Log::info('Subject Form Data:', $request->all());
+
         $request->validate([
             'name' => 'required|string|max:255',
             'class_id' => 'required|exists:classes,id',
+            'teacher_id' => 'required|exists:teachers,id',
         ]);
 
         // Ensure the subject is unique for that class-section
@@ -42,13 +47,18 @@ class AddSubjectController extends Controller
             return back()->withErrors(['error' => 'This subject is already assigned to this class and section.'])->withInput();
         }
 
-        Subject::create([
+        // Create Subject with assigned Teacher
+        $subject = Subject::create([
             'name' => $request->name,
             'class_id' => $request->class_id,
+            'teacher_id' => $request->teacher_id, // Ensure teacher ID is passed
         ]);
 
-        return redirect()->route('subjects.index')->with('success', 'Subject added successfully.');
+        Log::info('New Subject Created:', $subject->toArray());
+
+        return redirect()->route('subjects.index')->with('success', 'Subject and teacher assigned successfully.');
     }
+
 
     /**
      * Show the edit form for a subject.
@@ -110,18 +120,21 @@ class AddSubjectController extends Controller
         $classId = $request->query('class_id');
 
         if ($classId) {
-            $subjects = Subject::where('class_id', $classId)->with('class')->get();
+            $subjects = Subject::where('class_id', $classId)
+                ->with(['class', 'teacher']) // ✅ Ensure teacher relationship is included
+                ->get();
         } else {
-            $subjects = Subject::with('class')->get();
+            $subjects = Subject::with(['class', 'teacher'])->get();
         }
 
-        // Return only relevant subject data for the AJAX request
+        // ✅ Ensure the teacher's name is included in the response
         return response()->json($subjects->map(function ($subject) {
             return [
                 'id' => $subject->id,
                 'name' => $subject->name,
                 'class_name' => $subject->class->class_name ?? 'Not Assigned',
                 'section' => $subject->class->section ?? 'Not Assigned',
+                'teacher_name' => $subject->teacher->name ?? 'No Teacher Assigned', // ✅ Ensure teacher name is included
             ];
         }));
     }

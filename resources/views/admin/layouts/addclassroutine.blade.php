@@ -45,15 +45,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="teacher_id_number" class="form-label">Select Teacher</label>
-                        <select class="form-select" id="teacher_id_number" name="teacher_id_number" required>
+                        <label for="teacher_id" class="form-label">Select Teacher</label>
+                        <select class="form-select" id="teacher_id" name="teacher_id" required>
                             <option value="" selected disabled>Select a teacher</option>
                             @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->teacher_id_number }}">{{ $teacher->first_name }} {{ $teacher->last_name }}</option>
+                            <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                             @endforeach
                         </select>
                     </div>
-
                     <div class="mb-3">
                         <label for="day_of_week" class="form-label">Day of the Week</label>
                         <select class="form-select" id="day_of_week" name="day_of_week" required>

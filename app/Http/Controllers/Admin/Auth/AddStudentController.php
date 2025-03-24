@@ -76,6 +76,7 @@ class AddStudentController extends Controller
                 'student_id' => $validatedData['student_id'],
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
+                'class_id' => $validatedData['class_id'],
                 'class' => $classData->class_name, // Get class name from database
                 'section' => $classData->section, // Get section from database
                 'gender' => $validatedData['gender'],

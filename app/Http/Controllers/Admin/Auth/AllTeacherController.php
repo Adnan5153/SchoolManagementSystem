@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\AllTeacher;
+use App\Models\ClassModel;
 use Illuminate\Http\Request;
 
 class AllTeacherController extends Controller
@@ -13,12 +14,11 @@ class AllTeacherController extends Controller
      */
     public function index()
     {
-        // Fetch all teachers with pagination
-        $teachers = AllTeacher::paginate(10);
+        $teachers = AllTeacher::with('class')->paginate(10); // eager load class
 
-        // Pass the teacher data to the view
         return view('admin.layouts.allteachers', ['teachers' => $teachers]);
     }
+
 
     /**
      * Update a specific teacher's details in the database.
@@ -32,7 +32,7 @@ class AllTeacherController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'class' => 'required|string',
+            'class_id' => 'required|integer',
             'section' => 'required|string',
             'subject' => 'required|string',
             'gender' => 'required|string',
@@ -44,6 +44,10 @@ class AllTeacherController extends Controller
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:255',
         ]);
+
+        // Fetch the class name from the ClassModel using the class_id
+        $classData = ClassModel::findOrFail($validatedData['class_id']);
+        $className = $classData->class_name;
 
         // Find the teacher using teacher_id_number
         $teacher = AllTeacher::findOrFail($teacher_id_number);

@@ -1,17 +1,17 @@
 <?php
 
-
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class ClassRoutine extends Model
+class Examschedule extends Model
 {
-	protected $table = 'class_routines';
+	protected $table = 'examschedules';
+
 	protected $fillable = [
 		'class_id',
 		'subject_id',
-		'teacher_id',
-		'day_of_week',
+		'exam_date',
 		'start_time',
 		'end_time',
 		'room_number'
@@ -25,10 +25,5 @@ class ClassRoutine extends Model
 	public function subject()
 	{
 		return $this->belongsTo(Subject::class);
-	}
-
-	public function teacher()
-	{
-		return $this->belongsTo(Teacher::class);
 	}
 }

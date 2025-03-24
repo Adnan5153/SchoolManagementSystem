@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\AllStudentController;
 use App\Http\Controllers\Admin\Auth\AddTeacherController;
 use App\Http\Controllers\Admin\Auth\AllTeacherController;
 use App\Http\Controllers\Admin\Auth\ClassController;
+use App\Http\Controllers\Admin\Auth\AddExamScheduleController;
 use App\Http\Controllers\Admin\Auth\GradeController;
 use App\Http\Controllers\Admin\Auth\ClassRoutineController;
 use App\Http\Controllers\Teacher\Auth\MarkController;
@@ -47,10 +48,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     // Teacher Routes
     Route::get('/addteacher', [AddTeacherController::class, 'create'])->name('addteacher.create');
     Route::post('/addteacher', [AddTeacherController::class, 'store'])->name('addteacher.store');
-
     Route::get('/allteachers', [AllTeacherController::class, 'index'])->name('allteachers.index');
-    Route::put('/allteachers/{teacher_id_number}', [AllTeacherController::class, 'update'])->name('allteachers.update');
-    Route::delete('/allteachers/{teacher_id_number}', [AllTeacherController::class, 'destroy'])->name('allteachers.destroy');
+    Route::put('/allteachers/{id}', [AllTeacherController::class, 'update'])->name('allteachers.update');
+    Route::delete('/allteachers/{id}', [AllTeacherController::class, 'destroy'])->name('allteachers.destroy');
 
     // Subject Routes
     Route::get('/subjects', [AddSubjectController::class, 'index'])->name('subjects.index');
@@ -78,8 +78,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::delete('/classroutines/delete/{id}', [ClassRoutineController::class, 'destroy'])->name('classroutines.destroy');
     Route::get('/classroutines/get-subjects', [ClassRoutineController::class, 'getSubjectsByClass'])->name('classroutines.get-subjects');
 
-
-
     // Admin Routes for Grade Management
     Route::get('/grades', [GradeController::class, 'index'])->name('grades.index');
     Route::get('/grades/create', [GradeController::class, 'create'])->name('grades.create');
@@ -87,6 +85,16 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/grades/{grade}/edit', [GradeController::class, 'edit'])->name('grades.edit');
     Route::put('/grades/{grade}', [GradeController::class, 'update'])->name('grades.update');
     Route::delete('/grades/{grade}', [GradeController::class, 'destroy'])->name('grades.destroy');
+
+    // Exam Schedule Routes
+    Route::get('/addexamschedule', [AddExamScheduleController::class, 'index'])->name('examschedule.index');
+    Route::post('/addexamschedule', [AddExamScheduleController::class, 'store'])->name('examschedule.store');
+    Route::get('/examschedule', [AddExamScheduleController::class, 'show'])->name('examschedule.list');
+    Route::get('/examschedule/{id}/edit', [AddExamScheduleController::class, 'edit'])->name('examschedule.edit');
+    Route::put('/examschedule/{id}', [AddExamScheduleController::class, 'update'])->name('examschedule.update');
+    Route::delete('/examschedule/{id}', [AddExamScheduleController::class, 'destroy'])->name('examschedule.destroy');
+    Route::get('/examschedule/get-subjects', [AddExamScheduleController::class, 'getSubjectsByClass'])->name('examschedule.get-subjects');
+
 });
 
 // Teacher Routes

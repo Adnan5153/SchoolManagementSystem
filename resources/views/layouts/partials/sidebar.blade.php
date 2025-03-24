@@ -267,7 +267,6 @@
                         </a>
                         <ul id="teachers" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
                             <li class="sidebar-item"><a href="allteachers" class="sidebar-link">All Teachers</a></li>
-                            <li class="sidebar-item"><a href="teacherdetails" class="sidebar-link">Teacher Details</a></li>
                             <li class="sidebar-item"><a href="addteacher" class="sidebar-link">Add Teacher</a></li>
                         </ul>
                     </li>
@@ -366,8 +365,8 @@
                         <i class="fa-solid fa-graduation-cap"></i> Exam
                     </a>
                     <ul id="exam" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                        <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Schedule</a></li>
-                        <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Grades</a></li>
+                        <li class="sidebar-item"><a href="{{ route('examschedule.index') }}" class="sidebar-link">Add Exam Schedule</a></li>
+                        <li class="sidebar-item"><a href="{{ route('examschedule.list') }}" class="sidebar-link">View Exam Schedule</a></li>
                     </ul>
                 </li>
                 <li class="sidebar-item">

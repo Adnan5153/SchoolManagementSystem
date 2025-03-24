@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Gpa extends Model
 {
-    use HasFactory;
+	protected $table = 'gpas';
 
-    protected $fillable = [
-        'student_id',
-        'gpa',
-        'semester',
-    ];
+	protected $fillable = [
+		'student_id',
+		'gpa',
+		'semester'
+	];
 
-    public function student()
-    {
-        return $this->belongsTo(AllStudent::class, 'student_id', 'student_id');
-    }
+	public function allstudent()
+	{
+		return $this->belongsTo(Allstudent::class, 'student_id');
+	}
 }

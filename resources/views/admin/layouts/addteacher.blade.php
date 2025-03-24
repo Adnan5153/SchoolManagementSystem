@@ -23,27 +23,20 @@
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
             </div>
             <div class="col-md-6">
-                <label for="class" class="form-label">Class</label>
-                <select class="form-select" id="class" name="class" required>
-                    <option value="">Select Class</option>
-                    <option value="PG">PG</option>
-                    <option value="KG">KG</option>
-                    <option value="1">1</option>
-                    <!-- Additional classes -->
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="section" class="form-label">Section</label>
-                <select class="form-select" id="section" name="section" required>
-                    <option value="">Select Section</option>
-                    <option value="A">A</option>
-                    <!-- Additional sections -->
+                <label for="class_section" class="form-label">Select Class & Section</label>
+                <select class="form-select" id="class_section" name="class_section" required>
+                    <option value="" selected disabled>Select Class & Section</option>
+                    @foreach($classes as $class)
+                    <option value="{{ $class->id }}|{{ $class->section }}">
+                        {{ $class->class_name }} - {{ $class->section }}
+                    </option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-6">
                 <label for="subject" class="form-label">Subject</label>
                 <select class="form-select" id="subject" name="subject" required>
-                    <option value="">Select Section</option>
+                    <option value="">Select Subject</option>
                     <option value="Bangla">Bangla</option>
                     <option value="English">English</option>
                     <!-- Additional sections -->
@@ -67,14 +60,9 @@
                 <input type="date" class="form-control" id="joining_date" name="joining_date" required>
             </div>
             <div class="col-md-6">
-                <label for="teacher_id_number" class="form-label">ID Number</label>
-                <input type="number" class="form-control" id="teacher_id_number" name="teacher_id_number" placeholder="ID Number">
-            </div>
-            <div class="col-md-6">
                 <label for="nid_number" class="form-label">NID Number</label>
                 <input type="number" class="form-control" id="nid_number" name="nid_number" placeholder="NID Number">
             </div>
-            
             <div class="col-md-6">
                 <label for="religion" class="form-label">Religion</label>
                 <input type="text" class="form-control" id="religion" name="religion" placeholder="Religion" required>

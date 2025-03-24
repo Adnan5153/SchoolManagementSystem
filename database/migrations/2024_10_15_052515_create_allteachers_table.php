@@ -12,12 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('allteachers', function (Blueprint $table) {
-            $table->unsignedInteger('teacher_id_number')->primary(); // Primary key for teachers
-
-            // Changing the type of 'class' and 'subject' to string to support names like 'PG', 'Bangla', etc.
-            $table->string('class');
+            $table->id();
+            $table->unsignedBigInteger('class_id');
             $table->string('subject');
-
             $table->string('first_name');
             $table->string('last_name');
             $table->string('section');
@@ -30,6 +27,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->timestamps();
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
         });
     }
 

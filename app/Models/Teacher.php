@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class Teacher extends Authenticatable
 {
     use HasFactory, Notifiable;
-
     protected $guard = 'teachers';
 
     protected $fillable = [
@@ -33,9 +35,23 @@ class Teacher extends Authenticatable
         ];
     }
 
-    // Relationship: A teacher belongs to a class
     public function class()
     {
-        return $this->belongsTo(ClassModel::class, 'class_id');
+        return $this->belongsTo(ClassModel::class);
+    }
+
+    public function class_routines()
+    {
+        return $this->hasMany(ClassRoutine::class);
+    }
+
+    public function marks()
+    {
+        return $this->hasMany(Mark::class);
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
     }
 }

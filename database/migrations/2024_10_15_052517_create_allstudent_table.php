@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('class');
+            $table->unsignedBigInteger('class_id'); // Add class_id column
             $table->string('section');
             $table->string('gender');
             $table->date('date_of_birth');
@@ -30,7 +31,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('allparents')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete(); // Consider cascade on delete to remove related students when a parent is deleted
+                ->cascadeOnDelete(); 
+            $table->foreign('class_id')
+                ->references('id')
+                ->on('classes')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete(); 
         });
     }
 
