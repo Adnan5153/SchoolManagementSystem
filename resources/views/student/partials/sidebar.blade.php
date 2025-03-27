@@ -237,24 +237,34 @@
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo d-flex align-items-center">
-                    <img src="{{ asset('images/bird (1).png') }}" alt="Little Birds School Logo" style="height: 50px; width: auto; margin-right: 10px;">
+                    <img src="{{ asset('images/bird (1).png') }}" alt="Little Birds School Logo"
+                        style="height: 50px; width: auto; margin-right: 10px;">
                     <a href="#">Little Birds School</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#dashboard" aria-expanded="false">
-                            <i class="fas fa-chart-bar"></i> Dashboard
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#student" aria-expanded="false">
+                            <i class="fas fa-user-graduate"></i> Student
                         </a>
-                        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Student</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Profile</a></li>
+                        <ul id="student" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.dashboard') }}" class="sidebar-link">Dashboard</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">Profile</a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#classRoutine" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#classRoutine" aria-expanded="false">
                             <i class="fa-regular fa-clipboard"></i> Class Routine
                         </a>
-                        <ul id="classRoutine" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                        <ul id="classRoutine" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a href="{{ route('student.classroutine') }}" class="sidebar-link">
                                     <i class="fa-solid fa-calendar"></i> View Class Routine
@@ -262,55 +272,84 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#marks" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#marks" aria-expanded="false">
                             <i class="fa-solid fa-circle-dollar-to-slot"></i> Marks
                         </a>
-                        <ul id="marks" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
+                        <ul id="marks" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="gpa" class="sidebar-link">GPA</a>
+                                <a href="{{ route('gpa') }}" class="sidebar-link">GPA</a>
                             </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Class Wise</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Full Transcript</a></li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.marks') }}" class="sidebar-link">Class Wise</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">Full Transcript</a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#subjects" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#subjects" aria-expanded="false">
                             <i class="fa-solid fa-layer-group"></i> Subject
                         </a>
-                        <ul id="subjects" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">All Subject</a></li>
+                        <ul id="subjects" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.subjects') }}" class="sidebar-link">All Subject</a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#library" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#library" aria-expanded="false">
                             <i class="fa-solid fa-book-open-reader"></i> Library
                         </a>
-                        <ul id="library" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">All Books</a></li>
+                        <ul id="library" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.library') }}" class="sidebar-link">All Books</a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#notice" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#notice" aria-expanded="false">
                             <i class="fa-solid fa-flag"></i> Notice
                         </a>
-                        <ul id="notice" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">All Notice</a></li>
+                        <ul id="notice" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.notice') }}" class="sidebar-link">All Notice</a>
+                            </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#exam" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#exam" aria-expanded="false">
                             <i class="fa-solid fa-graduation-cap"></i> Exam
                         </a>
-                        <ul id="exam" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Schedule</a></li>
+                        <ul id="exam" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('student.exam.schedule') }}" class="sidebar-link">Exam Schedule</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
+
             </div>
         </aside>
         <div>
-            <button class="btn shadow-lg" id="sidebar-toggle" type="button" style="position:relative;left:27%;border: 2px solid #ffc107;">
+            <button class="btn shadow-lg" id="sidebar-toggle" type="button"
+                style="position:relative;left:27%;border: 2px solid #ffc107;">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>

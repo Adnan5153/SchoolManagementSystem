@@ -44,7 +44,7 @@ class GradeController extends Controller
             'remarks' => $request->remarks,
         ]);
 
-        return redirect()->route('grades.index')->with('success', 'Grade added successfully.');
+        return redirect()->route('grades.create')->with('success', 'Grade added successfully.');
     }
 
     /**

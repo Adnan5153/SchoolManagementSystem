@@ -3,6 +3,7 @@
 use App\Http\Controllers\Student\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Student\Auth\RegisteredUserController;
 use App\Http\Controllers\Student\ProfileController;
+use App\Http\Controllers\Student\Auth\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Routes for unauthenticated students
@@ -25,7 +26,7 @@ Route::middleware('guest:student')->prefix('student')->name('student.')->group(f
 // Routes for authenticated students
 Route::middleware('auth:student')->prefix('student')->name('student.')->group(function () {
     // Student Dashboard Route
-    Route::get('/dashboard', function () {
+    Route::get('/dashboard', [StudentDashboardController::class, 'index'], function () {
         return view('student.dashboard');
     })->middleware(['verified'])->name('dashboard'); // Dashboard view
 

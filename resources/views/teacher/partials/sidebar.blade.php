@@ -237,106 +237,163 @@
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo d-flex align-items-center">
-                    <img src="{{ asset('images/bird (1).png') }}" alt="Little Birds School Logo" style="height: 50px; width: auto; margin-right: 10px;">
+                    <img src="{{ asset('images/bird (1).png') }}" alt="Little Birds School Logo"
+                        style="height: 50px; width: auto; margin-right: 10px;">
                     <a href="#">Little Birds School</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#dashboard" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#dashboard" aria-expanded="false">
                             <i class="fas fa-chart-bar"></i> Dashboard
                         </a>
-                        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Dashboard</a></li>
+                        <ul id="dashboard" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.dashboard') }}" class="sidebar-link">Dashboard</a></li>
                             <li class="sidebar-item"><a href="#" class="sidebar-link">Profile</a></li>
                         </ul>
                     </li>
+                    <!-- Class Management -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#classManagement" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#classManagement" aria-expanded="false">
                             <i class="fa-solid fa-layer-group"></i> Class Management
                         </a>
-                        <ul id="classManagement" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Class List</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Student List</a></li>
+                        <ul id="classManagement" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.classes') }}" class="sidebar-link">Class
+                                    List</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.students') }}"
+                                    class="sidebar-link">Student List</a></li>
                         </ul>
                     </li>
+
+                    <!-- Attendance -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#attendance" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#attendance" aria-expanded="false">
                             <i class="fa-solid fa-check-square"></i> Attendance
                         </a>
-                        <ul id="attendance" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Take Attendance</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Attendance Report</a></li>
+                        <ul id="attendance" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.attendance.take') }}"
+                                    class="sidebar-link">Take Attendance</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.attendance.report') }}"
+                                    class="sidebar-link">Attendance Report</a></li>
                         </ul>
                     </li>
+
+                    <!-- Assignments -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#assignments" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#assignments" aria-expanded="false">
                             <i class="fa-solid fa-book"></i> Assignments
                         </a>
-                        <ul id="assignments" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Create Assignment</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Manage Assignments</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Student Submissions</a></li>
+                        <ul id="assignments" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.assignments.create') }}"
+                                    class="sidebar-link">Create Assignment</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.assignments.manage') }}"
+                                    class="sidebar-link">Manage Assignments</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.assignments.submissions') }}"
+                                    class="sidebar-link">Student Submissions</a></li>
                         </ul>
                     </li>
+
+                    <!-- Exam Management -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#examManagement" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#examManagement" aria-expanded="false">
                             <i class="fa-solid fa-graduation-cap"></i> Exam Management
                         </a>
-                        <ul id="examManagement" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Exam Schedule</a></li>
-                            <li class="sidebar-item"><a href="addmarks" class="sidebar-link">Enter Marks</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Grade Book</a></li>
+                        <ul id="examManagement" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.exam.schedule') }}"
+                                    class="sidebar-link">Exam Schedule</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.addmarks') }}"
+                                    class="sidebar-link">Enter Marks</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.gradebook') }}"
+                                    class="sidebar-link">Grade Book</a></li>
                         </ul>
                     </li>
+
+                    <!-- Class Routine -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#classRoutine" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#classRoutine" aria-expanded="false">
                             <i class="fa-regular fa-clipboard"></i> Class Routine
                         </a>
-                        <ul id="classRoutine" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Class Schedule</a></li>
+                        <ul id="classRoutine" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.routine') }}"
+                                    class="sidebar-link">Class Schedule</a></li>
                         </ul>
                     </li>
+
+                    <!-- Student Progress -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#studentProgress" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#studentProgress" aria-expanded="false">
                             <i class="fa-solid fa-chart-line"></i> Student Progress
                         </a>
-                        <ul id="studentProgress" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Student Performance</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Remarks</a></li>
+                        <ul id="studentProgress" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.progress') }}"
+                                    class="sidebar-link">Student Performance</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.remarks') }}"
+                                    class="sidebar-link">Remarks</a></li>
                         </ul>
                     </li>
+
+                    <!-- Messages -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#messages" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#messages" aria-expanded="false">
                             <i class="fa-solid fa-envelope"></i> Messages
                         </a>
-                        <ul id="messages" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Messages</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Announcements</a></li>
+                        <ul id="messages" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.messages') }}"
+                                    class="sidebar-link">Messages</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.announcements') }}"
+                                    class="sidebar-link">Announcements</a></li>
                         </ul>
                     </li>
+
+                    <!-- Notice Board -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#noticeBoard" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#noticeBoard" aria-expanded="false">
                             <i class="fa-solid fa-flag"></i> Notice Board
                         </a>
-                        <ul id="noticeBoard" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Notice</a></li>
+                        <ul id="noticeBoard" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.notice') }}"
+                                    class="sidebar-link">Notice</a></li>
                         </ul>
                     </li>
+
+                    <!-- Resources -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse" data-bs-target="#resources" aria-expanded="false">
+                        <a href="#" class="sidebar-link collapsed shadow" data-bs-toggle="collapse"
+                            data-bs-target="#resources" aria-expanded="false">
                             <i class="fa-solid fa-folder-open"></i> Resources and Materials
                         </a>
-                        <ul id="resources" class="sidebar-dropdown list-unstyled collapse ms-4" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Upload Materials</a></li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">Shared Materials</a></li>
+                        <ul id="resources" class="sidebar-dropdown list-unstyled collapse ms-4"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item"><a href="{{ route('teacher.resources.upload') }}"
+                                    class="sidebar-link">Upload Materials</a></li>
+                            <li class="sidebar-item"><a href="{{ route('teacher.resources.shared') }}"
+                                    class="sidebar-link">Shared Materials</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </aside>
-        
+
         <div>
-            <button class="btn shadow-lg" id="sidebar-toggle" type="button" style="position:relative;left:27%;border: 2px solid #ffc107;">
+            <button class="btn shadow-lg" id="sidebar-toggle" type="button"
+                style="position:relative;left:27%;border: 2px solid #ffc107;">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>

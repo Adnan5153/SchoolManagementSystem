@@ -119,7 +119,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $routine->class->class_name }} - {{ $routine->class->section }}</td>
                             <td>{{ $routine->subject->name }}</td>
-                            <td>{{ $routine->teacher->first_name }} {{ $routine->teacher->last_name }}</td>
+                            <td>{{ $routine->teacher->name ?? 'No Teacher Assigned' }}</td>
                             <td>{{ $routine->day_of_week }}</td>
                             <td>{{ \Carbon\Carbon::parse($routine->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($routine->end_time)->format('h:i A') }}</td>
                             <td>{{ $routine->room_number ?? 'N/A' }}</td>

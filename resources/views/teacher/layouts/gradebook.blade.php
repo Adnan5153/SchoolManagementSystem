@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.teacher')
 
 @section('content')
     <h3 class="mb-4 mt-4">Grade Book</h3>

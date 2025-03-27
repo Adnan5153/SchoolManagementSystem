@@ -1,15 +1,15 @@
 @extends('layouts.student')
 
 @section('content')
-    <h3 class="mb-4 mt-4">My Class Routine</h3>
+    <h3 class="mb-4 mt-4">My Exam Schedule</h3>
 
-    @if ($class_routines->isEmpty())
-        <div class="alert alert-warning">No class routine is available for your class.</div>
+    @if ($examSchedules->isEmpty())
+        <div class="alert alert-info">No exam schedules have been added yet for your class.</div>
     @else
         <div class="card shadow mb-4">
             <div class="card-header bg-dark text-white">
                 <h5 class="mb-0">
-                    <i class="fa-solid fa-clipboard-list"></i> Class Routine - {{ $class_routines->first()->class->class_name ?? '' }} {{ $class_routines->first()->class->section ?? '' }}
+                    <i class="fa-solid fa-calendar-days"></i> Exam Schedule: {{ $examSchedules->first()->class->class_name }} - {{ $examSchedules->first()->class->section }}
                 </h5>
             </div>
 
@@ -19,26 +19,24 @@
                         <thead class="table-primary">
                             <tr>
                                 <th>#</th>
-                                <th>Day</th>
                                 <th>Subject</th>
-                                <th>Teacher</th>
+                                <th>Exam Date</th>
                                 <th>Time</th>
                                 <th>Room</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($class_routines as $routine)
+                            @foreach ($examSchedules as $schedule)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $routine->day_of_week }}</td>
-                                    <td>{{ $routine->subject->name ?? 'N/A' }}</td>
-                                    <td>{{ $routine->teacher->name ?? 'No Teacher Assigned' }}</td>
+                                    <td>{{ $schedule->subject->name ?? 'N/A' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($schedule->exam_date)->format('d M Y') }}</td>
                                     <td>
-                                        {{ \Carbon\Carbon::parse($routine->start_time)->format('h:i A') }}
+                                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('h:i A') }}
                                         -
-                                        {{ \Carbon\Carbon::parse($routine->end_time)->format('h:i A') }}
+                                        {{ \Carbon\Carbon::parse($schedule->end_time)->format('h:i A') }}
                                     </td>
-                                    <td>{{ $routine->room_number ?? 'N/A' }}</td>
+                                    <td>{{ $schedule->room_number ?? 'Not Assigned' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
